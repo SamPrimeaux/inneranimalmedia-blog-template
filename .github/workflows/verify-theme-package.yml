@@ -1,0 +1,25 @@
+name: Verify Plain Jane Theme Package
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  source-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lint
+      - run: npm run build -- --base /theme-packages/plain-jane/0.1.0/preview/
+      - name: Verify portable preview output
+        shell: bash
+        run: |
+          test -f dist/index.html
+          test -f dist/icons/app-logo.svg
+          test -f dist/images/cover-slow-travel.svg
+          grep -q '/theme-packages/plain-jane/0.1.0/preview/' dist/index.html

@@ -12,7 +12,7 @@ export function AppLogo({ className = "", size = 28, showText = false }: AppLogo
   return (
     <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
       <img
-        src="/icons/app-logo.svg"
+        src={`${import.meta.env.BASE_URL}icons/app-logo.svg`}
         alt="Plain Jane Journal"
         width={size}
         height={size}

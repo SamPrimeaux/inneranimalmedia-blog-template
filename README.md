@@ -81,3 +81,15 @@ export function JournalNewsletterSection({ section }: CMSSectionProps<{ headline
 ```tsx
 componentRegistry.set("journal-newsletter-banner", JournalNewsletterSection);
 ```
+
+
+## Building as a versioned theme-package preview
+
+This repository is the independent source for the Plain Jane Journal product. The Theme Store deploys the compiled build at a versioned preview path; it should not merge the source into the store repository.
+
+```bash
+npm ci
+npm run build -- --base /theme-packages/plain-jane/0.1.0/preview/
+```
+
+The Router's basename, logo and fixture assets follow Vite's BASE_URL, so the same source works at the root or at its versioned hosted path. Publishing a new theme-package requires separate package validation and R2 release promotion; this preview build does not install any CMS tables.

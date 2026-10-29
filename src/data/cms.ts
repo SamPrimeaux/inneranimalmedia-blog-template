@@ -308,11 +308,12 @@ export const assetsStore: Record<string, CMSAsset> = {
 
 export function resolveAsset(assetId?: string): CMSAsset {
   if (assetId && assetsStore[assetId]) {
-    return assetsStore[assetId];
+    const asset = assetsStore[assetId];
+    return {...asset, url: asset.url.startsWith("/") ? import.meta.env.BASE_URL.replace(/\/$/, "") + asset.url : asset.url};
   }
   return {
     id: assetId || "asset-placeholder",
-    url: "/images/cover-slow-travel.svg",
+    url: `${import.meta.env.BASE_URL}images/cover-slow-travel.svg`,
     alt_text: "Placeholder image",
     width: 1200,
     height: 800,
